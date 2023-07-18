@@ -1,7 +1,7 @@
-package com.sparta.sdc.common.timestamp.config;
+package com.sparta.sdc.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.sdc.common.timestamp.security.UserDetailsServiceImpl;
+import com.sparta.sdc.common.security.UserDetailsServiceImpl;
 import com.sparta.sdc.user.jwtUtil.JwtAuthorizationFilter;
 import com.sparta.sdc.user.jwtUtil.JwtUtil;
 import lombok.RequiredArgsConstructor;

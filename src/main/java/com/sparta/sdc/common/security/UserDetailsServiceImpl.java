@@ -1,4 +1,4 @@
-package com.sparta.sdc.common.timestamp.security;
+package com.sparta.sdc.common.security;
 
 import com.sparta.sdc.user.entity.User;
 import com.sparta.sdc.user.repository.UserRepository;
