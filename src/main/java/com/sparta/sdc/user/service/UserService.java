@@ -1,12 +1,15 @@
 package com.sparta.sdc.user.service;
 
 import com.sparta.sdc.user.dto.AuthRequestDto;
+import com.sparta.sdc.user.dto.ProfileRequestDto;
+import com.sparta.sdc.user.dto.ProfileResponseDto;
 import com.sparta.sdc.user.entity.User;
 import com.sparta.sdc.user.entity.UserRoleEnum;
 import com.sparta.sdc.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,4 +41,31 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
     }
+
+    // 프로필 보기
+    public ProfileResponseDto getProfile(Long id) {
+
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("사용자를 찾을 수 없습니다.")
+        );
+
+        return new ProfileResponseDto(user);
+    }
+
+    // 프로필 수정하기(닉네임, 주소)
+    @Transactional
+    public ProfileResponseDto updateProfile(Long profileId, ProfileRequestDto requestDto) {
+
+        User user = userRepository.findById(profileId).orElseThrow(
+                () -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다.")
+        );
+
+        user.update(requestDto);
+        return new ProfileResponseDto(user);
+
+    }
+
+
+
+
 }

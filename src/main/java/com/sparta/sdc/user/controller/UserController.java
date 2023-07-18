@@ -2,17 +2,18 @@ package com.sparta.sdc.user.controller;
 
 import com.sparta.sdc.user.dto.ApiResponseDto;
 import com.sparta.sdc.user.dto.AuthRequestDto;
+import com.sparta.sdc.user.dto.ProfileRequestDto;
+import com.sparta.sdc.user.dto.ProfileResponseDto;
 import com.sparta.sdc.user.jwtUtil.JwtUtil;
+import com.sparta.sdc.user.security.UserDetailsImpl;
 import com.sparta.sdc.user.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -46,4 +47,25 @@ public class UserController {
 
         return ResponseEntity.ok().body(new ApiResponseDto("로그인 성공", HttpStatus.CREATED.value()));
     }
+
+
+    // 프로필 보기
+    @GetMapping("/profile")
+    public ProfileResponseDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return userService.getProfile(userDetails.getUser().getId()
+
+    // 프로필 수정하기
+    @PutMapping("/profile")
+    public ResponseEntity<ApiResponseDto> updateProfile(Long profileId, @RequestBody ProfileRequestDto requestDto){
+        try{
+            userService.updateProfile(profileId, requestDto);
+            return ResponseEntity.ok().body(new ApiResponseDto("프로필 수정 성공", HttpStatus.OK.value()));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(new ApiResponseDto("작성자만 수정 할 수 있습니다.", HttpStatus.BAD_REQUEST.value()));
+        }
+
+    }
+
+
+
 }
