@@ -16,7 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/sdc")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -24,13 +24,13 @@ public class UserController {
 
 
     @PostMapping("/signup") //회원 가입
-    public ResponseEntity<ApiResponseDto> signUp(@Valid @RequestBody AuthRequestDto requestDto) {
+    public ResponseEntity<ApiResponseDto> signUp( @RequestBody @Valid AuthRequestDto requestDto) {
         try {
             userService.signup(requestDto);
+            return ResponseEntity.status(201).body(new ApiResponseDto("회원가입 성공", HttpStatus.CREATED.value()));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(new ApiResponseDto("중복된 username 입니다.", HttpStatus.BAD_REQUEST.value()));
         }
-        return ResponseEntity.status(201).body(new ApiResponseDto("회원가입 성공", HttpStatus.CREATED.value()));
     }
 
     //로그인
@@ -43,7 +43,7 @@ public class UserController {
         }
 
         //JWT 생성 및 쿠키에 저장 후 Response 객체에 추가
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(loginRequestDto.getUsername(), loginRequestDto.getRole()));
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(loginRequestDto.getUserName(), loginRequestDto.getRole()));
 
         return ResponseEntity.ok().body(new ApiResponseDto("로그인 성공", HttpStatus.CREATED.value()));
     }
