@@ -3,7 +3,9 @@ package com.sparta.sdc.user.entity;
 public enum UserRoleEnum {
     USER(Authority.USER), //유저라는 이넘은 authority라는 필드에다가 Authority.USER를 넣고
 
-    ADMIN(Authority.ADMIN); //어드민은 Authority.ADMIN라는걸 Authority에 넣고
+    ADMIN(Authority.ADMIN), //어드민은 Authority.ADMIN라는걸 Authority에 넣고
+
+    SHOP_KEEPER(Authority.SHOP_KEEPER); //가게 사장님
 
     private final String authority;
 
@@ -15,8 +17,9 @@ public enum UserRoleEnum {
         return this.authority;
     }
 
-    public static class Authority { //이너 클래스, 정적 클래스로 2가지 변수
+    public static class Authority {
         public static final String USER = "ROLE_USER";
         public static final String ADMIN = "ROLE_ADMIN";
+        public static final String SHOP_KEEPER = "ROLE_SHOPKEEPER";
     }
 }
