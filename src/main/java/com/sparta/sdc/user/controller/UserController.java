@@ -52,7 +52,8 @@ public class UserController {
     // 프로필 보기
     @GetMapping("/profile")
     public ProfileResponseDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        return userService.getProfile(userDetails.getUser().getId()
+        return userService.getProfile(userDetails.getUser().getId());
+    }
 
     // 프로필 수정하기
     @PutMapping("/profile")
