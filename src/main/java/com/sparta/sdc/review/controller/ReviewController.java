@@ -3,6 +3,7 @@ package com.sparta.sdc.review.controller;
 import com.sparta.sdc.review.dto.ReviewRequestDto;
 import com.sparta.sdc.review.dto.ReviewResponseDto;
 import com.sparta.sdc.review.service.ReviewService;
+import com.sparta.sdc.user.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

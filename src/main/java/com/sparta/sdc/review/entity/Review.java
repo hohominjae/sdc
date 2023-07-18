@@ -3,6 +3,7 @@ package com.sparta.sdc.review.entity;
 import com.sparta.sdc.common.timestamp.Timestamped;
 import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.shop.entity.Shop;
+import com.sparta.sdc.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
