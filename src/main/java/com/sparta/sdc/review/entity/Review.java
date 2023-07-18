@@ -1,5 +1,6 @@
 package com.sparta.sdc.review.entity;
 
+import com.sparta.sdc.common.timestamp.Timestamped;
 import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.shop.entity.Shop;
 import jakarta.persistence.*;
@@ -12,11 +13,11 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Table(name = "review")
-public class Review {
+public class Review extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long ReviewId;
 
     @Column(nullable = false)
     private String review;
@@ -35,5 +36,9 @@ public class Review {
     @OneToOne
     private Order order;
 
+    public Review(User user, Shop shop){
+        this.user = user;
+        this.shop = shop;
+    }
 
 }
