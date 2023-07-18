@@ -1,6 +1,7 @@
-package com.sparta.sdc.user.security;
+package com.sparta.sdc.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.sdc.common.security.UserDetailsServiceImpl;
 import com.sparta.sdc.user.jwtUtil.JwtAuthorizationFilter;
 import com.sparta.sdc.user.jwtUtil.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @Configuration
 @EnableWebSecurity //Spring Security 지원을 가능하게 함
@@ -50,8 +52,8 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()//resources 접근 허용 설정
-                        .requestMatchers("/api/auth/**").permitAll()//'/api/auth/'로 시작하는 요청 접근 모두 허용
-                        .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()//'GET/api/posts'로 시작하는 요청 접근 모두 허용
+                        .requestMatchers("/api/sdc/**").permitAll()//'/api/sdc/'로 시작하는 요청 접근 모두 허용
+                        .requestMatchers(HttpMethod.GET, "/api/sdc/**").permitAll()//'GET/api/posts'로 시작하는 요청 접근 모두 허용
                         .anyRequest().authenticated()//그 외 모든 요청 인증처리
         );
         //필터 관리

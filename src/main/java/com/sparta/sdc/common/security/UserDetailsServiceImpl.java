@@ -1,8 +1,7 @@
-package com.sparta.sdc.user.security;
+package com.sparta.sdc.common.security;
 
 import com.sparta.sdc.user.entity.User;
 import com.sparta.sdc.user.repository.UserRepository;
-import com.sparta.sdc.user.security.UserDetailsImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Not Found " + username));
+        User user = userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("Not Found " + username));
         return new UserDetailsImpl(user);
     }
 }
