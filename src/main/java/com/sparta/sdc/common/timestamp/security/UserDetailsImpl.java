@@ -1,4 +1,4 @@
-package com.sparta.sdc.user.security;
+package com.sparta.sdc.common.timestamp.security;
 
 import com.sparta.sdc.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +30,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getUserName();
     }
 
     @Override

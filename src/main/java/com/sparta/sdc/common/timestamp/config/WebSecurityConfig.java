@@ -1,6 +1,7 @@
-package com.sparta.sdc.user.security;
+package com.sparta.sdc.common.timestamp.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.sdc.common.timestamp.security.UserDetailsServiceImpl;
 import com.sparta.sdc.user.jwtUtil.JwtAuthorizationFilter;
 import com.sparta.sdc.user.jwtUtil.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @Configuration
 @EnableWebSecurity //Spring Security 지원을 가능하게 함

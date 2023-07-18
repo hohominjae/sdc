@@ -2,7 +2,7 @@ package com.sparta.sdc.user.jwtUtil;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.sdc.user.dto.ApiResponseDto;
-import com.sparta.sdc.user.security.UserDetailsServiceImpl;
+import com.sparta.sdc.common.timestamp.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -49,18 +49,18 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
     //인증 처리
-    private void setAuthentication(String username) {
+    private void setAuthentication(String userName) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
-        Authentication authentication = createAuthentication(username);
+        Authentication authentication = createAuthentication(userName);
         context.setAuthentication(authentication);
-        // username -> user 조회 -> userDetails 에 담고 -> authentication의 principal 에 담고
+        // userName -> user 조회 -> userDetails 에 담고 -> authentication의 principal 에 담고
         // -> securityContent 에 담고 -> SecurityContextHolder 에 담고
         // -> 이제 @AuthenticationPrincipal 로 조회할 수 있음
         SecurityContextHolder.setContext(context);
     }
     //인증 객체 생성
-    private Authentication createAuthentication(String username) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+    private Authentication createAuthentication(String userName) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }
