@@ -1,6 +1,7 @@
 package com.sparta.sdc.shop.entity;
 
 import com.sparta.sdc.shop.dto.ShopRequestDto;
+import com.sparta.sdc.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,25 +14,25 @@ public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(name = "shopName", nullable = false)
     private String shopname;
-    @Column(nullable = false)
+    @Column(name = "shopNumber", nullable = false)
     private int shopnumber;
-    @Column
+    @Column(name = "address", nullable = false)
     private String address;
-    @Column
+    @Column(name = "delivery", nullable = false)
     private String delivery;
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@Column
-    //private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)    //@Column
+    private User user;
 
     @Builder
-    public Shop(String shopname, Integer shopnumber, String address, String delivery ){ //User user
+    public Shop(String shopname, Integer shopnumber, String address, String delivery, User user){
         this.shopname = shopname;
         this.shopnumber = shopnumber;
         this.address = address;
         this.delivery = delivery;
-        //this.user = user;
+        this.user = user;
     }
     public void update(ShopRequestDto shopRequestDto) {
         this.shopname = shopRequestDto.getShopname();

@@ -1,5 +1,6 @@
 package com.sparta.sdc.shop.dto;
 
+import com.sparta.sdc.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,15 +10,15 @@ public class ShopRequestDto {
     private int shopnumber;
     private String address;
     private String delivery;
-    //private User user;
+    private User user;
 
     @Builder
-    public ShopRequestDto(String shopname, Integer shopnumber, String address, String delivery) {
+    public ShopRequestDto(String shopname, Integer shopnumber, String address, String delivery, User user) {
         this.shopname = shopname;
         this.shopnumber = shopnumber;
         this.address = address;
         this.delivery = delivery;
-        //this.user = user;
+        this.user = user;
     }
 
 }
