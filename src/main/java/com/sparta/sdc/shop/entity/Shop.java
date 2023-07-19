@@ -6,15 +6,17 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "shopName", nullable = false)
+    @Column(name = "shopName", nullable = false) //
     private String shopname;
     @Column(name = "shopNumber", nullable = false)
     private int shopnumber;
@@ -27,7 +29,7 @@ public class Shop {
     private User user;
 
     @Builder
-    public Shop(String shopname, Integer shopnumber, String address, String delivery, User user){
+    public Shop(String shopname, int shopnumber, String address, String delivery, User user){
         this.shopname = shopname;
         this.shopnumber = shopnumber;
         this.address = address;

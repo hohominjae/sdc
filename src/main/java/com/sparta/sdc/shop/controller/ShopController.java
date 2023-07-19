@@ -10,28 +10,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/sdc")
 public class ShopController {
     private final ShopService shopService;
     @PostMapping("/shop")
     public ResponseEntity<ShopResponseDto> createShop(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody ShopRequestDto shopRequestDto) {
-        //controller 에서 requesto -> service
-        //ShopResponseDto shopResponseDto = shopService.createShop(userDetails,shopRequestDto);
-        //service 로직 수행하고나서 reponsedto로 반환
-        //return shopResponseDto;
-
-        //합치면
         return new ResponseEntity<>(shopService.createShop(userDetails,shopRequestDto), HttpStatus.OK);
-//        return ShopService.save(shopRequestDto);
     }
 
     @GetMapping("/shops")
-    @ResponseBody
-    public ResponseEntity<List<ShopResponseDto>> getShops(){
-        return new ResponseEntity<>(shopService.getShops(), HttpStatus.OK);
+    //@ResponseBody
+    public ResponseEntity<ShopResponseDto> getShops(){
+        ShopResponseDto result = shopService.getShops();
+        return ResponseEntity.ok().body(result);
+        //return new ResponseEntity<>(shopService.getShops(), HttpStatus.OK);
     }
 
     @GetMapping("/shop/{shop_id}")
@@ -40,13 +34,8 @@ public class ShopController {
     }
 
 
-
-
     @PutMapping("/shop/{shop_id}")
     public ResponseEntity<ShopResponseDto> updateShop(@PathVariable Long shop_id, @RequestBody ShopRequestDto shopRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-
-//        ShopResponseDto shopResponseDto = ShopService.updateShop(shop_id, shopRequestDto, userDetails);
-//        return shopResponseDto;
         return new ResponseEntity<>(shopService.updateShop(shop_id, shopRequestDto, userDetails),HttpStatus.OK);
     }
 

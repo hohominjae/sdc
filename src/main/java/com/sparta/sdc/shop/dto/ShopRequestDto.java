@@ -13,7 +13,7 @@ public class ShopRequestDto {
     private User user;
 
     @Builder
-    public ShopRequestDto(String shopname, Integer shopnumber, String address, String delivery, User user) {
+    public ShopRequestDto(String shopname, int shopnumber, String address, String delivery, User user) {
         this.shopname = shopname;
         this.shopnumber = shopnumber;
         this.address = address;
