@@ -18,28 +18,22 @@ public class Review extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ReviewId;
+    private Long reviewId;
 
     @Column(nullable = false)
     private String review;
+
+    @Column
+    private Long shopId;
+
+    @Column
+    private Long menuId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_id", nullable = false)
-    private Shop shop;
-
-    @OneToMany(mappedBy = "Menu")
-    private Menu menu;
-
-    @OneToOne
+    @OneToOne(mappedBy = "review")
+    @JoinColumn
     private Order order;
-
-    public Review(User user, Shop shop){
-        this.user = user;
-        this.shop = shop;
-    }
-
 }

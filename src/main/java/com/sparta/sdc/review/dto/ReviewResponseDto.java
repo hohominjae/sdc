@@ -4,8 +4,6 @@ import com.sparta.sdc.review.entity.Review;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor
 public class ReviewResponseDto{
