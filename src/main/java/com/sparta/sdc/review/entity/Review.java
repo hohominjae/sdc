@@ -5,9 +5,13 @@ import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,17 +27,35 @@ public class Review extends Timestamped {
     @Column(nullable = false)
     private String review;
 
-    @Column
-    private Long shopId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Review parent;
 
-    @Column
-    private Long menuId;
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
+    private List<Review> child = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne(mappedBy = "review")
-    @JoinColumn
+    @OneToOne
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
+
+    //빌더는 생성자를 대체해서 객체생성
+    //생성자가 많은경우 가독성이 좋지 않다.
+    //순서에 종속적이지 않다.
+    @Builder
+    public Review(String review, Order order, User user){
+        this.review = review;
+        this.order = order;
+        this.user = user;
+    }
+
+    public void addParent(Review review){
+        this.parent = review;
+    }
+
+    public void update(String review) {
+        this.review = review;
+    }
 }

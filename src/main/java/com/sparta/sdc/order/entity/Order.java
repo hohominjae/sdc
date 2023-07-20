@@ -34,8 +34,9 @@ public class Order {
     private Menu menu;
 
     @OneToOne
-    @JoinColumn(name = "review_id")
+    @JoinColumn(name = "order")
     private Review review;
+
 }
 
 
