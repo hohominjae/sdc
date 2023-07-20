@@ -7,11 +7,11 @@ import lombok.Setter;
 @Setter
 public class ProfileRequestDto {
 
-    private String nickname;
+    private String nickName;
     private String address;
 
-    public ProfileRequestDto(String nickname, String address){
-        this.nickname = nickname;
+    public ProfileRequestDto(String nickName, String address){
+        this.nickName = nickName;
         this.address = address;
     }
 

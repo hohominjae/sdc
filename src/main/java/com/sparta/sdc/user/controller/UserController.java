@@ -1,11 +1,8 @@
 package com.sparta.sdc.user.controller;
 
-import com.sparta.sdc.user.dto.ApiResponseDto;
-import com.sparta.sdc.user.dto.AuthRequestDto;
-import com.sparta.sdc.user.dto.ProfileRequestDto;
-import com.sparta.sdc.user.dto.ProfileResponseDto;
+import com.sparta.sdc.common.timestamp.security.UserDetailsImpl;
+import com.sparta.sdc.user.dto.*;
 import com.sparta.sdc.user.jwtUtil.JwtUtil;
-import com.sparta.sdc.user.security.UserDetailsImpl;
 import com.sparta.sdc.user.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -25,12 +22,8 @@ public class UserController {
 
     @PostMapping("/signup") //회원 가입
     public ResponseEntity<ApiResponseDto> signUp( @RequestBody @Valid AuthRequestDto requestDto) {
-        try {
             userService.signup(requestDto);
             return ResponseEntity.status(201).body(new ApiResponseDto("회원가입 성공", HttpStatus.CREATED.value()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new ApiResponseDto("중복된 username 입니다.", HttpStatus.BAD_REQUEST.value()));
-        }
     }
 
     //로그인
@@ -56,10 +49,10 @@ public class UserController {
     }
 
     // 프로필 수정하기
-    @PutMapping("/profile")
-    public ResponseEntity<ApiResponseDto> updateProfile(Long profileId, @RequestBody ProfileRequestDto requestDto){
+    @PutMapping("/editProfile")
+    public ResponseEntity<ApiResponseDto> updateProfile(@RequestBody ProfileRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         try{
-            userService.updateProfile(profileId, requestDto);
+            userService.updateProfile(requestDto, userDetails.getUser());
             return ResponseEntity.ok().body(new ApiResponseDto("프로필 수정 성공", HttpStatus.OK.value()));
         }catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(new ApiResponseDto("작성자만 수정 할 수 있습니다.", HttpStatus.BAD_REQUEST.value()));
@@ -67,6 +60,16 @@ public class UserController {
 
     }
 
+    // 비밀번호 수정하기
+    @PutMapping("/editPassword")
+    public ResponseEntity<ApiResponseDto> updatePassword(@Valid @RequestBody EditPasswordRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        try{
+            userService.updatePassword(requestDto, userDetails.getUser());
+            return ResponseEntity.ok().body(new ApiResponseDto("비밀번호 수정 성공", HttpStatus.OK.value()));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(new ApiResponseDto("비밀번호 수정에 실패하였습니다. " + e.getMessage(), HttpStatus.BAD_REQUEST.value()));
+        }
 
+    }
 
 }
