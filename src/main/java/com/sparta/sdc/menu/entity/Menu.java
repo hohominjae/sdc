@@ -1,9 +1,7 @@
 package com.sparta.sdc.menu.entity;
 
 import com.sparta.sdc.order.entity.Order_Menu;
-import com.sparta.sdc.review.entity.Review;
 import com.sparta.sdc.shop.entity.Shop;
-import com.sparta.sdc.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "menu_tb")
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +28,6 @@ public class Menu {
 
     @Column
     private int menunum;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id", nullable = false)
-    private Review review;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id", nullable = false)

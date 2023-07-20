@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "review")
+@Table(name = "review_tb")
 public class Review extends Timestamped {
 
     @Id
@@ -36,7 +36,7 @@ public class Review extends Timestamped {
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "review")
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 

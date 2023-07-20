@@ -1,7 +1,5 @@
 package com.sparta.sdc.order.entity;
 
-import com.sparta.sdc.menu.entity.Menu;
-import com.sparta.sdc.review.entity.Review;
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.user.entity.User;
 import jakarta.persistence.*;

@@ -1,5 +1,6 @@
 package com.sparta.sdc.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sparta.sdc.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.Getter;
