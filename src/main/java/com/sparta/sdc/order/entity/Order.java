@@ -9,11 +9,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "order_tb")
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,14 +34,12 @@ public class Order {
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id", nullable = false)
-    private Menu menu;
+    @OneToMany(mappedBy = "order")
+    private List<Order_Menu> orders = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "order")
-    private Review review;
-
+    //Order, Reivew 관계에서 오류생기면 아래 주석처리
+//    @OneToOne
+//    private Review review;
 }
 
 

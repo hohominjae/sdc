@@ -1,9 +1,13 @@
 package com.sparta.sdc.user.entity;
 
+import com.sparta.sdc.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +38,9 @@ public class User {
     @Enumerated(value = EnumType.STRING) //이넘 클래스를 엔티티의 컬럼으로 사용하기 위한 어노테이션. 이 값을 어떤 형태로 db에 저장할지 정의.
     private UserRoleEnum role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Review> reviewList =new ArrayList<>();
+
     public User(String userName, String password, String nickName, String email, String address, UserRoleEnum role) {
         this.userName = userName;
         this.password = password;
@@ -41,5 +48,9 @@ public class User {
         this.email = email;
         this.address = address;
         this.role = role;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

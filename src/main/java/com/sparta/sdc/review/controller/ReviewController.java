@@ -13,20 +13,5 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/sdc")
 @RequiredArgsConstructor
 public class ReviewController {
-
-    private final ReviewService reviewService;
-
     //댓글 작성기능
-    @PostMapping("/review")
-    public ResponseEntity<ReviewResponseDto> createReview(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody ReviewRequestDto reviewRequestDto){
-
-        return ResponseEntity.ok(reviewService.createReview(userDetails, reviewRequestDto));
-    }
-
-    @PutMapping("/review/{id}")
-    public ResponseEntity<ReviewResponseDto> updateReview(@PathVariable Long id, @RequestBody ReviewRequestDto reviewRequestDto){
-
-        return ResponseEntity.ok((ReviewResponseDto) reviewService.updateReview(id, reviewRequestDto));
-    }
 }
-

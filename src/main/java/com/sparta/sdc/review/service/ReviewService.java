@@ -14,40 +14,35 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ReviewService {
 
-    private final ReviewRepository reviewRepository;
-    private final OrderRepository orderRepository;
+
+//    public ReviewResponseDto createReview(Long id, UserDetailsImpl userDetails, ReviewRequestDto reviewRequestDto) {
+//        Order order = orderRepository.findById(id)
+//                .orElseThrow(()-> new IllegalArgumentException(
+//                        "리뷰는 주문후에!!"
+//                ));
+//
+//        Review review;
+//        if (reviewRequestDto.getParentId() == 0){
+//            review = new Review(reviewRequestDto.getReview(), order, userDetails.getUser());
+//        } else {
+//            Review parentReivew = reviewRepository.findById(reviewRequestDto.getParentId()).orElseThrow(
+//                    ()->new IllegalArgumentException("리뷰는 한개만!")
+//            );
+//
+//            if(parentReivew.getOrder().getId() !=reviewRequestDto.getOrderId())
+//                throw new IllegalArgumentException("잘못된 리뷰입니다.");
+//
+//            review = new Review(reviewRequestDto.getReview(), order, userDetails.getUser());
+//
+//            review.addParent(parentReivew);
+//        }
+//
+//        reviewRepository.save(review);
+//
+//        return new ReviewResponseDto(review, userDetails.getUsername());
+//    }
 
 
-    public ReviewResponseDto createReview(UserDetailsImpl userDetails, ReviewRequestDto reviewRequestDto) {
-        Order order = orderRepository.findById(reviewRequestDto.getOrderId())
-                .orElseThrow(()-> new IllegalArgumentException(
-                        "리뷰는 주문후에!!"
-                ));
-        Review review;
-        if (reviewRequestDto.getParentId() == 0){
-            review = new Review(reviewRequestDto.getReview(), order, userDetails.getUser());
-        } else {
-            Review parentReivew = reviewRepository.findById(reviewRequestDto.getParentId()).orElseThrow(
-                    ()->new IllegalArgumentException("리뷰가 존재하지 않습니다.")
-            );
-            if(parentReivew.getOrder().getId() !=reviewRequestDto.getOrderId())
-                throw new IllegalArgumentException("잘못된 리뷰입니다.");
-            review = new Review(reviewRequestDto.getReview(), order, userDetails.getUser());
-
-            review.addParent(parentReivew);
-        }
-        reviewRepository.save(review);
-        return new ReviewResponseDto(review, userDetails.getUsername());
-    }
-
-    public Object updateReview(Long id, ReviewRequestDto reviewRequestDto) {
-        Review review = reviewRepository.findById(id).orElseThrow(
-                ()->new IllegalArgumentException("리뷰가 존재하지 않습니다.")
-        );
-        review.update(reviewRequestDto.getReview());
-        reviewRepository.save(review);
-        return new ReviewResponseDto(review);
-    }
 }
 //리뷰 중복 테스트
 //    @Transactional

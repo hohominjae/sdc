@@ -9,5 +9,6 @@ public class ReviewRequestDto {
     // 리뷰
     private String review;
     private Long orderId;
-    private Long parentId;
 }
+
+

@@ -1,6 +1,7 @@
 package com.sparta.sdc.review.entity;
 
 import com.sparta.sdc.common.timestamp.Timestamped;
+import com.sparta.sdc.menu.entity.Menu;
 import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.user.entity.User;
@@ -28,18 +29,22 @@ public class Review extends Timestamped {
     private String review;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Review parent;
-
-    @OneToMany(mappedBy = "parent", orphanRemoval = true)
-    private List<Review> child = new ArrayList<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id", nullable = false)
+    private Shop shop;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "review")
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
+
+    //mappedBy는 양방향 관계를 나타내줌.
+    @OneToMany
+    @JoinColumn(name = "menu_id")
+    private List<Menu> menus = new ArrayList<>();
+
 
     //빌더는 생성자를 대체해서 객체생성
     //생성자가 많은경우 가독성이 좋지 않다.
@@ -49,13 +54,5 @@ public class Review extends Timestamped {
         this.review = review;
         this.order = order;
         this.user = user;
-    }
-
-    public void addParent(Review review){
-        this.parent = review;
-    }
-
-    public void update(String review) {
-        this.review = review;
     }
 }

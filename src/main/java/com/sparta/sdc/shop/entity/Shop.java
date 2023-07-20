@@ -1,5 +1,8 @@
 package com.sparta.sdc.shop.entity;
 
+import com.sparta.sdc.menu.entity.Menu;
+import com.sparta.sdc.order.entity.Order;
+import com.sparta.sdc.review.entity.Review;
 import com.sparta.sdc.shop.dto.ShopRequestDto;
 import com.sparta.sdc.user.entity.User;
 import jakarta.persistence.*;
@@ -7,6 +10,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -27,6 +33,12 @@ public class Shop {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)    //@Column
     private User user;
+    @OneToMany(mappedBy = "shop")
+    private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "shop")
+    private List<Order> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "shop")
+    private List<Menu> menus = new ArrayList<>();
 
     @Builder
     public Shop(String shopname, int shopnumber, String address, String delivery, User user){
