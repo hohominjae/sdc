@@ -1,5 +1,6 @@
 package com.sparta.sdc.user.entity;
 
+import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -37,9 +38,14 @@ public class User {
     @Column(nullable = false) //필드 추가 , EnumType.ORDINAL는 integer타입(숫자, 순번)으로 db에 저장하는거. ORDINAL로 저장할 시 다른 객체(?)가 들어오면 db에 있는 데이터가 꼬이기 때문
     @Enumerated(value = EnumType.STRING) //이넘 클래스를 엔티티의 컬럼으로 사용하기 위한 어노테이션. 이 값을 어떤 형태로 db에 저장할지 정의.
     private UserRoleEnum role;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    
+    //cascade 수정삭제 관련 오류시 수정
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Review> reviewList =new ArrayList<>();
+
+    //cascade 수정삭제 관련 오류시 수정
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Order> orders = new ArrayList<>();
 
     public User(String userName, String password, String nickName, String email, String address, UserRoleEnum role) {
         this.userName = userName;

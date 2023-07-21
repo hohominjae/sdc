@@ -1,6 +1,6 @@
 package com.sparta.sdc.menu.entity;
 
-import com.sparta.sdc.order.entity.Order_Menu;
+import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.shop.entity.Shop;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -33,8 +33,8 @@ public class Menu {
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
 
-    @OneToMany(mappedBy = "menu")
-    private List<Order_Menu> menus = new ArrayList<>();
+    //cascade = CascadeType.REMOVE -> 참조관계를 지워주는 역할
+
 
 }
 
