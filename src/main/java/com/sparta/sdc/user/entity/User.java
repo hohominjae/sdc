@@ -1,17 +1,22 @@
 package com.sparta.sdc.user.entity;
 
+
 import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.review.entity.Review;
+import com.sparta.sdc.user.dto.ProfileRequestDto;
+
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "user_tb")
 @EqualsAndHashCode
@@ -47,13 +52,23 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Order> orders = new ArrayList<>();
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private ProfilePassword profilePassword;
+
     public User(String userName, String password, String nickName, String email, String address, UserRoleEnum role) {
         this.userName = userName;
         this.password = password;
+//        this.profilePassword = new ProfilePassword(password);
         this.nickName = nickName;
         this.email = email;
         this.address = address;
         this.role = role;
+
+    }
+
+    public void update(ProfileRequestDto requestDto) {
+        this.nickName = requestDto.getNickName();
+        this.address = requestDto.getAddress();
     }
 
     public String getUserName() {
