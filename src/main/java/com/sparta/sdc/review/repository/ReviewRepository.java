@@ -1,4 +1,12 @@
 package com.sparta.sdc.review.repository;
 
-public class ReviewRepository {
+import com.sparta.sdc.order.entity.Order;
+import com.sparta.sdc.review.entity.Review;
+import org.apache.catalina.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+
 }
