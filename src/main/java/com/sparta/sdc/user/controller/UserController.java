@@ -9,10 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/sdc")
@@ -31,6 +28,13 @@ public class UserController {
             return ResponseEntity.badRequest().body(new ApiResponseDto("중복된 username 입니다.", HttpStatus.BAD_REQUEST.value()));
         }
     }
+
+//    @ResponseBody
+//    @PostMapping("/signup/emailCheck")
+//    public ResponseEntity<ApiResponseDto> EmailCheck(@RequestBody EmailCheckRequestDto emailCheckRequestDto) throws MessagingException, UnsupportedEncodingException {
+//        String authCode = userService.sendEmail(emailCheckRequestDto.getEmail());
+//        return new ApiResponseDto(authCode);	// Response body에 값을 반환
+//    }
 
     //로그인
     @PostMapping("/login")
