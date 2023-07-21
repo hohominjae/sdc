@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class MenuResponseDto {
+
     private String menuname;
 
     private int menuprice;

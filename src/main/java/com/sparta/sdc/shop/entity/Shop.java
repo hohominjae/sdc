@@ -24,9 +24,9 @@ public class Shop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "shopName", nullable = false) //
-    private String shopname;
+    private String shopName;
     @Column(name = "shopNumber", nullable = false)
-    private int shopnumber;
+    private int shopNumber;
     @Column(name = "address", nullable = false)
     private String address;
     @Column(name = "delivery", nullable = false)
@@ -42,16 +42,16 @@ public class Shop {
     private List<Menu> menus = new ArrayList<>();
 
     @Builder
-    public Shop(String shopname, int shopnumber, String address, String delivery, User user){
-        this.shopname = shopname;
-        this.shopnumber = shopnumber;
+    public Shop(String shopName, int shopNumber, String address, String delivery, User user){
+        this.shopName = shopName;
+        this.shopNumber = shopNumber;
         this.address = address;
         this.delivery = delivery;
         this.user = user;
     }
     public void update(ShopRequestDto shopRequestDto) {
-        this.shopname = shopRequestDto.getShopname();
-        this.shopnumber = shopRequestDto.getShopnumber();
+        this.shopName = shopRequestDto.getShopName();
+        this.shopNumber = shopRequestDto.getShopNumber();
         this.address = shopRequestDto.getAddress();
         this.delivery = shopRequestDto.getDelivery();
     }

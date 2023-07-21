@@ -20,8 +20,8 @@ public class ShopService {
 
     public ShopResponseDto createShop(UserDetailsImpl userDetails, ShopRequestDto shopRequestDto) {
         Shop shop = Shop.builder()
-                .shopname(shopRequestDto.getShopname())
-                .shopnumber(shopRequestDto.getShopnumber())
+                .shopName(shopRequestDto.getShopName())
+                .shopNumber(shopRequestDto.getShopNumber())
                 .address(shopRequestDto.getAddress())
                 .delivery(shopRequestDto.getDelivery())
                 .user(userDetails.getUser())
