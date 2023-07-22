@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 public class NaverEmailController {
     private final NaverEmailService naverEmailService;
 
-    @PostMapping("signup/mailConfirm")
-    public String mailConfirm(@RequestParam String email) throws Exception {
+    @PostMapping("/email/inform")
+    @ResponseBody
+    public String mailConfirm(@RequestParam("email") String email) throws Exception {
         log.info("이메일 " + email );
 
         String code = naverEmailService.sendSimpleMessage(email);

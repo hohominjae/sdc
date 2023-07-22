@@ -1,6 +1,7 @@
 package com.sparta.sdc.user.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class User {
     @Column(nullable = false)
     private String nickName;
 
+    @Email
     @Column(nullable = false)
     private String email;
 

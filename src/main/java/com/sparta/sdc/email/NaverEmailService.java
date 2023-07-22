@@ -1,5 +1,6 @@
 package com.sparta.sdc.email;
 
+import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -16,27 +17,25 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
-@PropertySource("classpath:application.properties")
+
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class NaverEmailService {
 
     @Autowired
     JavaMailSender emailSender;
 
-    //인증번호 생성
-    private final String ePw = createKey();
-
-    @Value("tls9607@naver.com")
+    @Value("${spring.mail.username}")
     private String id;
+    //인증번호 생성
+    private String ePw ;
 
     public MimeMessage createMessage(String to) throws MessagingException, UnsupportedEncodingException {
         log.info("보내는 대상 : " + to);
         log.info("인증 번호 : " + ePw);
         MimeMessage message = emailSender.createMimeMessage();
 
-        message.addRecipients(MimeMessage.RecipientType.TO, to); // to 보내는 대상
+        message.addRecipients(Message.RecipientType.TO, to); // to 보내는 대상
         message.setSubject(" 회원가입 인증 코드: "); //메일 제목
 
         // 메일 내용 메일의 subtype을 html로 지정하여 html문법 사용 가능
@@ -53,7 +52,7 @@ public class NaverEmailService {
         return message;
     }
     // 인증코드 만들기
-    public static String createKey() {
+    public String createKey() {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
 
@@ -71,6 +70,7 @@ public class NaverEmailService {
      */
     public String sendSimpleMessage(String to)throws Exception {
         log.info("to" + to);
+        ePw = createKey();
         MimeMessage message = createMessage(to);
         try{
             emailSender.send(message); // 메일 발송 (MimeMessagePreparator)
