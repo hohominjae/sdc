@@ -5,6 +5,7 @@ import com.sparta.sdc.shop.dto.ShopRequestDto;
 import com.sparta.sdc.shop.dto.ShopResponseDto;
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.shop.repository.ShopRepository;
+import com.sparta.sdc.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ShopService {
     private final ShopRepository shopRepository;
@@ -60,6 +60,8 @@ public class ShopService {
 //    //    public ShopService(ShopRepository shopRepository){
 ////        this.shopRepository=shopRepository;
 ////    }
+
+    @Transactional
     public ShopResponseDto updateShop(Long shop_id, ShopRequestDto shopRequestDto,UserDetailsImpl userDetails) {
         Shop shop = checkShop(shop_id);
         if(shop.getUser().getId().equals(userDetails.getUser().getId())){

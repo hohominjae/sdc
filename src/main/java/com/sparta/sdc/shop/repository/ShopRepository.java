@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface  ShopRepository extends JpaRepository<Shop, Long> {
+    Shop findByUserId(Long id);
     //List<Shop> findAllByOrderByCreatedAtDesc();
     //List<Shop> findAllByOrderByModifiedAtDesc()
 

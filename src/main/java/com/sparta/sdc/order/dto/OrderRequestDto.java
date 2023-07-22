@@ -7,4 +7,7 @@ import lombok.Setter;
 @Setter
 public class OrderRequestDto {
     private int totalprice;
+    private String menuOrder;
+
+
 }

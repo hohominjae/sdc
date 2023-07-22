@@ -20,7 +20,7 @@ public class ShopResponseDto {
     private String delivery;
     private String username;
     private List<MenuResponseDto> menus;
-    private List<OrderResponseDto> orders;
+//    private List<OrderResponseDto> orders;
     private List<ReviewResponseDto> reviews;
 
     private List<ShopResponseDto> shopsList;
@@ -34,7 +34,7 @@ public class ShopResponseDto {
         this.delivery = shop.getDelivery();
         this.username = shop.getUser().getUserName();
         this.menus = shop.getMenus().stream().map(MenuResponseDto::new).toList();
-        this.orders = shop.getOrders().stream().map(OrderResponseDto::new).toList();
+//        this.orders = shop.getOrders().stream().map(OrderResponseDto::new).toList();
         this.reviews = shop.getReviews().stream().map(ReviewResponseDto::new).toList();
 
     }
