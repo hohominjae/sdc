@@ -1,6 +1,7 @@
 # sdc
 init
 <<네이버 이메일에 환경설정에 들어가서  pop3 / SMTP 을 아래와 같이 설정해주세요!>>
+pop3/smtp 사용함 -> 기존에 받은 메일을 포함하여 받음 -> 네이버 메일에 원본 저장
 
 ![네이버 이메일 설정](https://github.com/hohominjae/sdc/assets/131871128/9a616a8e-bd3b-45c9-8da8-5a86c96b1ee9)
 
