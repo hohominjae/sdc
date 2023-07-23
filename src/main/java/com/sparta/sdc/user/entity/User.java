@@ -1,5 +1,6 @@
 package com.sparta.sdc.user.entity;
 
+import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.review.entity.Review;
 import com.sparta.sdc.user.dto.ProfileRequestDto;
 
@@ -52,10 +53,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Order> orders = new ArrayList<>();
 
-    //cascade 수정삭제 관련 오류시 수정
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Review> reviewList =new ArrayList<>();
-
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     private ProfilePassword profilePassword;
 
@@ -79,9 +76,5 @@ public class User {
     public String getUserName() {
         return userName;
 
-    }
-
-    public String getUserName() {
-        return userName;
     }
 }
