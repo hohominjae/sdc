@@ -13,7 +13,7 @@ public class ShopResponseDto {
     private String shopname;
     private int shopnumber;
     private String address;
-    private String delivery;
+    private boolean delivery;
     private String username;
 
     private List<ShopResponseDto> shopsList;
@@ -24,7 +24,7 @@ public class ShopResponseDto {
         this.shopname = shop.getShopname();
         this.shopnumber = shop.getShopnumber();
         this.address = shop.getAddress();
-        this.delivery = shop.getDelivery();
+        this.delivery = shop.isDelivery();
         this.username = shop.getUser().getUserName();
     }
 

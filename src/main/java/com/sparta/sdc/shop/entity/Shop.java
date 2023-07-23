@@ -1,5 +1,6 @@
 package com.sparta.sdc.shop.entity;
 
+import com.sparta.sdc.common.timestamp.Timestamped;
 import com.sparta.sdc.menu.entity.Menu;
 import com.sparta.sdc.review.entity.Review;
 import com.sparta.sdc.shop.dto.ShopRequestDto;
@@ -17,18 +18,18 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Shop {
+public class Shop extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "shopName", nullable = false) //
+    @Column(name = "shopName") //, nullable = false
     private String shopname;
     @Column(name = "shopNumber", nullable = false)
     private int shopnumber;
     @Column(name = "address", nullable = false)
     private String address;
     @Column(name = "delivery", nullable = false)
-    private String delivery;
+    private boolean delivery;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)    //@Column
     private User user;
@@ -40,7 +41,7 @@ public class Shop {
 
 
     @Builder
-    public Shop(String shopname, int shopnumber, String address, String delivery, User user){
+    public Shop(String shopname, int shopnumber, String address, boolean delivery, User user){
         this.shopname = shopname;
         this.shopnumber = shopnumber;
         this.address = address;
@@ -48,9 +49,9 @@ public class Shop {
         this.user = user;
     }
     public void update(ShopRequestDto shopRequestDto) {
-        this.shopname = shopRequestDto.getShopname();
-        this.shopnumber = shopRequestDto.getShopnumber();
+        this.shopname = shopRequestDto.getShopName();
+        this.shopnumber = shopRequestDto.getShopNumber();
         this.address = shopRequestDto.getAddress();
-        this.delivery = shopRequestDto.getDelivery();
+        this.delivery = shopRequestDto.isDelivery();
     }
 }

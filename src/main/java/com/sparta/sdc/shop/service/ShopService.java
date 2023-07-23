@@ -22,10 +22,10 @@ public class ShopService {
     public ShopResponseDto createShop(UserDetailsImpl userDetails, ShopRequestDto shopRequestDto) {
         if (userDetails.getRole().equals(UserRoleEnum.ADMIN.toString()) || userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())){
             Shop shop = Shop.builder()
-                    .shopname(shopRequestDto.getShopname())
-                    .shopnumber(shopRequestDto.getShopnumber())
+                    .shopname(shopRequestDto.getShopName())
+                    .shopnumber(shopRequestDto.getShopNumber())
                     .address(shopRequestDto.getAddress())
-                    .delivery(shopRequestDto.getDelivery())
+                    .delivery(shopRequestDto.isDelivery())
                     .user(userDetails.getUser())
                     .build();
 
