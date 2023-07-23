@@ -1,8 +1,5 @@
 package com.sparta.sdc.shop.dto;
 
-import com.sparta.sdc.menu.dto.MenuResponseDto;
-import com.sparta.sdc.order.dto.OrderResponseDto;
-import com.sparta.sdc.review.dto.ReviewResponseDto;
 import com.sparta.sdc.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;

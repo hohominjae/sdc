@@ -1,5 +1,6 @@
 package com.sparta.sdc.shop.dto;
 
+
 import com.sparta.sdc.menu.dto.MenuResponseDto;
 import com.sparta.sdc.order.dto.OrderResponseDto;
 import com.sparta.sdc.review.dto.ReviewResponseDto;
@@ -33,7 +34,7 @@ public class ShopResponseDto {
         this.menus = shop.getMenus().stream().map(MenuResponseDto::new).toList();
         this.reviews = shop.getReviews().stream().map(ReviewResponseDto::new).toList();
     }
-
+  
     public ShopResponseDto(List<ShopResponseDto> shopList) {
         this.shopsList = shopList;
     }
