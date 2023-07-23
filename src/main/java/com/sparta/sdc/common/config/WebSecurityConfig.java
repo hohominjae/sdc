@@ -53,7 +53,7 @@ public class WebSecurityConfig {
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()//resources 접근 허용 설정
                         .requestMatchers("/api/sdc/**").permitAll()//'/api/sdc/'로 시작하는 요청 접근 모두 허용
-                        .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()//'GET/api/posts'로 시작하는 요청 접근 모두 허용
+                        .requestMatchers(HttpMethod.GET, "/api/sdc/**").permitAll()//'GET/api/sdc'로 시작하는 요청 접근 모두 허용
                         .anyRequest().authenticated()//그 외 모든 요청 인증처리
         );
         //필터 관리
@@ -61,3 +61,4 @@ public class WebSecurityConfig {
         return http.build();
     }
 }
+

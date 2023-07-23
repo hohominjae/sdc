@@ -1,86 +1,76 @@
 package com.sparta.sdc.menu.service;
 
-import com.sparta.sdc.common.security.UserDetailsImpl;
 import com.sparta.sdc.menu.dto.MenuRequestDto;
 import com.sparta.sdc.menu.dto.MenuResponseDto;
 import com.sparta.sdc.menu.entity.Menu;
 import com.sparta.sdc.menu.repository.MenuRepository;
-import com.sparta.sdc.shop.dto.ShopRequestDto;
-import com.sparta.sdc.shop.dto.ShopResponseDto;
+
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.shop.repository.ShopRepository;
-import com.sparta.sdc.user.entity.UserRoleEnum;
+import com.sparta.sdc.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.RejectedExecutionException;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class MenuService {
+
+    private final ShopRepository shopRepository;
     private final MenuRepository menuRepository;
 
-    public MenuResponseDto createMenu(UserDetailsImpl userDetails, MenuRequestDto menuRequestDto) {
-        if (userDetails.getRole().equals(UserRoleEnum.ADMIN.toString()) || userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())){
-            Menu menu = Menu.builder()
-                    .menuname(menuRequestDto.getMenuname())
-                    .menuprice(menuRequestDto.getMenuprice())
-                    .menunum(menuRequestDto.getMenunum())
-                    .user(userDetails.getUser())
-                    .build();
+//    메뉴 생성
+    public MenuResponseDto createMenu(MenuRequestDto requestDto, User user) {
+        Shop shop = shopRepository.findByUserId(user.getId());
 
-            return new MenuResponseDto(menuRepository.save(menu));
-        } else throw new IllegalArgumentException("메뉴 생성 권한이 없습니다.");
+        // dto -> entity
+        Menu menu = new Menu(requestDto, shop);
+
+        // DB 저장
+        menuRepository.save(menu);
+
+        // Entity -> Dto
+        return new MenuResponseDto(menu);
     }
 
-
-
-
-    public MenuResponseDto getMenu(Long menu_id) {
-        return new MenuResponseDto(checkMenu(menu_id));
+//  메뉴 전체 조회 --> 이부분 수정(shop_id)를 통해 특정 가게의 주문 목록을 조회 해야하는데 menu엔티티의 id가 넘어가고 있음.
+    public List<MenuResponseDto> getMenus(Long shop_id) {
+        return menuRepository.findById(shop_id).stream().map(MenuResponseDto::new).toList();
     }
 
+//  메뉴 수정
+    @Transactional
+    public MenuResponseDto updateMenu(Long id, MenuRequestDto requestDto, User user) {
+        Menu menu = findMenu(id);
 
-    public MenuResponseDto getMenus() {
-        List<MenuResponseDto> menuList = menuRepository.findAll().stream()
-                .map(MenuResponseDto::new)
-                .collect(Collectors.toList());
-        return new MenuResponseDto(menuList);
-    }
-
-    public MenuResponseDto updateMenu(Long menu_id, MenuRequestDto menuRequestDto,UserDetailsImpl userDetails) {
-        Menu menu = checkMenu(menu_id);
-
-        if(userDetails.getRole().equals(UserRoleEnum.ADMIN.toString())) {
-            menu.update(menuRequestDto);
-            return new MenuResponseDto(menu);
-        } else if (menu.getUser().getId().equals(userDetails.getUser().getId()) && userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())) {
-            menu.update(menuRequestDto);
-            return new MenuResponseDto(menu);
-        } else {
-            throw new IllegalArgumentException("메뉴 수정 권한이 없습니다.");
+        if(!user.getUserName().equals(menu.getShop().getUser().getUserName())){
+            throw new RejectedExecutionException();
         }
+
+        menu.update(requestDto);
+
+        return new MenuResponseDto(menu);
     }
 
-    public MenuResponseDto deleteMenu(Long menu_id, UserDetailsImpl userDetails) {
-        Menu menu = checkMenu(menu_id);
+//  메뉴 삭제
+    public void deleteMenu(Long id, User user) {
+        Menu menu = findMenu(id);
 
-        if(userDetails.getRole().equals(UserRoleEnum.ADMIN.toString())) {
-            menuRepository.delete(menu);
-            return new MenuResponseDto(menu);
-        } else if (menu.getUser().getId().equals(userDetails.getUser().getId()) && userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())) {
-            menuRepository.delete(menu);
-            return new MenuResponseDto(menu);
-        } else {
-            throw new IllegalArgumentException("메뉴 수정 권한이 없습니다.");
+        if(!menu.getShop().getUser().equals(user)){
+            throw new RejectedExecutionException();
         }
+
+        menuRepository.delete(menu);
     }
 
-    private Menu checkMenu(Long id) {
-        Menu menu = menuRepository.findById(id).orElseThrow(() -> new NullPointerException("메뉴가 존재하지 않습니다."));
-        return menu;
+    private Menu findMenu(Long id) {
+        return menuRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택한 메뉴는 존재하지 않습니다.")
+        );
+
     }
 }
+
