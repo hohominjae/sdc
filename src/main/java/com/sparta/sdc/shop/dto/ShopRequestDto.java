@@ -3,20 +3,19 @@ package com.sparta.sdc.shop.dto;
 import com.sparta.sdc.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
-import java.util.List;
 
 @Getter
 public class ShopRequestDto {
     private String shopName;
     private int shopNumber;
     private String address;
-    private String delivery;
+    private boolean delivery; // 1 : TRUE(배달),  0 : FALSE(포장)
     private User user;
 
     @Builder
-    public ShopRequestDto(String shopName, int shopNumber, String address, String delivery, User user) {
-        this.shopName = shopName;
-        this.shopNumber = shopNumber;
+    public ShopRequestDto(String shopname, int shopnumber, String address, boolean delivery, User user) {
+        this.shopName = shopname;
+        this.shopNumber = shopnumber;
         this.address = address;
         this.delivery = delivery;
         this.user = user;

@@ -33,8 +33,8 @@ public class Shop {
     private String address;
 
     @Column(name = "delivery", nullable = false)
-    private String delivery;
-
+    private boolean delivery; // 1 : TRUE(배달), 0 : FALSE(포장)
+  
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)    //@Column
     private User user;
@@ -46,7 +46,7 @@ public class Shop {
     private List<Menu> menus = new ArrayList<>();
 
     @Builder
-    public Shop(String shopName, int shopNumber, String address, String delivery, User user){
+    public Shop(String shopName, int shopNumber, String address, boolean delivery, User user){
         this.shopName = shopName;
         this.shopNumber = shopNumber;
         this.address = address;
@@ -58,6 +58,6 @@ public class Shop {
         this.shopName = shopRequestDto.getShopName();
         this.shopNumber = shopRequestDto.getShopNumber();
         this.address = shopRequestDto.getAddress();
-        this.delivery = shopRequestDto.getDelivery();
+        this.delivery = shopRequestDto.isDelivery();
     }
 }
