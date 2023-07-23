@@ -1,6 +1,7 @@
 package com.sparta.sdc.menu.dto;
 
 import com.sparta.sdc.menu.entity.Menu;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,5 @@ public class MenuResponseDto {
     public MenuResponseDto(Menu menu){
         this.menuname = menu.getMenuname();
         this.menuprice = menu.getMenuprice();
-
     }
 }

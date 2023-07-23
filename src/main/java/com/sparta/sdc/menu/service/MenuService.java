@@ -4,6 +4,7 @@ import com.sparta.sdc.menu.dto.MenuRequestDto;
 import com.sparta.sdc.menu.dto.MenuResponseDto;
 import com.sparta.sdc.menu.entity.Menu;
 import com.sparta.sdc.menu.repository.MenuRepository;
+
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.shop.repository.ShopRepository;
 import com.sparta.sdc.user.entity.User;
@@ -63,9 +64,7 @@ public class MenuService {
         }
 
         menuRepository.delete(menu);
-
     }
-
 
     private Menu findMenu(Long id) {
         return menuRepository.findById(id).orElseThrow(() ->
@@ -73,7 +72,5 @@ public class MenuService {
         );
 
     }
-
-
-
 }
+
