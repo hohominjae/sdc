@@ -23,21 +23,26 @@ public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "shopName", nullable = false) //
     private String shopName;
+
     @Column(name = "shopNumber", nullable = false)
     private int shopNumber;
+
     @Column(name = "address", nullable = false)
     private String address;
+
     @Column(name = "delivery", nullable = false)
     private String delivery;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)    //@Column
     private User user;
+
     @OneToMany(mappedBy = "shop")
     private List<Review> reviews = new ArrayList<>();
-    @OneToMany(mappedBy = "shop")
-    private List<Order> orders = new ArrayList<>();
+
     @OneToMany(mappedBy = "shop")
     private List<Menu> menus = new ArrayList<>();
 
