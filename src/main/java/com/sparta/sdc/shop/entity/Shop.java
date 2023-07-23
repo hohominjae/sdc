@@ -22,7 +22,7 @@ public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+  
     @Column(name = "shopName", nullable = false) //
     private String shopName;
 
@@ -53,7 +53,7 @@ public class Shop {
         this.delivery = delivery;
         this.user = user;
     }
-  
+
     public void update(ShopRequestDto shopRequestDto) {
         this.shopName = shopRequestDto.getShopName();
         this.shopNumber = shopRequestDto.getShopNumber();

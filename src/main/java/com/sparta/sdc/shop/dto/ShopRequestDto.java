@@ -3,7 +3,6 @@ package com.sparta.sdc.shop.dto;
 import com.sparta.sdc.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
-
 import java.util.List;
 
 @Getter

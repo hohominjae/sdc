@@ -6,7 +6,6 @@ import com.sparta.sdc.shop.dto.ShopResponseDto;
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.shop.repository.ShopRepository;
 import com.sparta.sdc.user.entity.UserRoleEnum;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +21,7 @@ public class ShopService {
     public ShopResponseDto createShop(UserDetailsImpl userDetails, ShopRequestDto shopRequestDto) {
         if (userDetails.getRole().equals(UserRoleEnum.ADMIN.toString()) || userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())){
             Shop shop = Shop.builder()
+
                     .shopName(shopRequestDto.getShopName())
                     .shopNumber(shopRequestDto.getShopNumber())
                     .address(shopRequestDto.getAddress())
@@ -43,7 +43,7 @@ public class ShopService {
                 .collect(Collectors.toList());
         return new ShopResponseDto(shopList);
     }
-  
+
     @Transactional
     public ShopResponseDto updateShop(Long shop_id, ShopRequestDto shopRequestDto,UserDetailsImpl userDetails) {
         Shop shop = checkShop(shop_id);
@@ -58,7 +58,7 @@ public class ShopService {
             throw new IllegalArgumentException("가게 수정 권한이 없습니다.");
         }
     }
-  
+
     @Transactional
     public ShopResponseDto deleteShop(Long shop_id, UserDetailsImpl userDetails) {
         Shop shop = checkShop(shop_id);
@@ -72,7 +72,6 @@ public class ShopService {
         } else {
             throw new IllegalArgumentException("가게 수정 권한이 없습니다.");
         }
-
     }
 
     private Shop checkShop(Long id) {

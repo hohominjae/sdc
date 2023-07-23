@@ -1,8 +1,6 @@
 package com.sparta.sdc.menu.entity;
 
-
 import com.sparta.sdc.menu.dto.MenuRequestDto;
-
 import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.shop.entity.Shop;
 import jakarta.persistence.*;
@@ -14,11 +12,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+
 @Table(name = "menu_tb")
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     @Column
     private String menuname;
@@ -45,7 +45,6 @@ public class Menu {
     public void update(MenuRequestDto requestDto) {
         this.menuname = requestDto.getMenuname();
         this.menuprice = requestDto.getMenuprice();
-
     }
 }
 
