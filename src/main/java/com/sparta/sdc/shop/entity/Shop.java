@@ -29,7 +29,7 @@ public class Shop extends Timestamped {
     @Column(name = "address", nullable = false)
     private String address;
     @Column(name = "delivery", nullable = false)
-    private boolean delivery;
+    private boolean delivery; // 1 : TRUE(배달), 0 : FALSE(포장)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)    //@Column
     private User user;

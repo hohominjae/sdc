@@ -9,7 +9,7 @@ public class ShopRequestDto {
     private String shopName;
     private int shopNumber;
     private String address;
-    private boolean delivery; // 1 : TRUE(배달), 0 : FALSE(포장)
+    private boolean delivery; // 1 : TRUE(배달),  0 : FALSE(포장)
     private User user;
 
     @Builder

@@ -25,7 +25,7 @@ public class ShopService {
                     .shopname(shopRequestDto.getShopName())
                     .shopnumber(shopRequestDto.getShopNumber())
                     .address(shopRequestDto.getAddress())
-                    .delivery(shopRequestDto.isDelivery())
+                    .delivery(shopRequestDto.isDelivery()) //
                     .user(userDetails.getUser())
                     .build();
 

@@ -13,7 +13,7 @@ public class ShopResponseDto {
     private String shopname;
     private int shopnumber;
     private String address;
-    private boolean delivery;
+    private boolean delivery; // 1 : TRUE(배달), 0 : FALSE(포장)
     private String username;
 
     private List<ShopResponseDto> shopsList;
