@@ -19,7 +19,6 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getRole(){
         return user.getRole().toString();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

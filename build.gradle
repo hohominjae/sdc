@@ -22,6 +22,8 @@ repositories {
 }
 
 dependencies {
+    //이메일 인증
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
     // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     // JPA 설정
