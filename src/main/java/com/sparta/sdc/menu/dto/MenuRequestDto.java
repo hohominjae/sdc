@@ -11,6 +11,4 @@ public class MenuRequestDto {
     private String menuname;
 
     private int menuprice;
-
-    private int menunum;
 }

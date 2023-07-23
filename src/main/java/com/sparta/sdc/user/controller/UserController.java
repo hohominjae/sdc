@@ -1,6 +1,7 @@
 package com.sparta.sdc.user.controller;
 
-import com.sparta.sdc.common.timestamp.security.UserDetailsImpl;
+//import com.sparta.sdc.common.timestamp.security.UserDetailsImpl;
+import com.sparta.sdc.common.security.UserDetailsImpl;
 import com.sparta.sdc.user.dto.*;
 import com.sparta.sdc.user.jwtUtil.JwtUtil;
 import com.sparta.sdc.user.service.UserService;

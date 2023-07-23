@@ -1,5 +1,6 @@
 package com.sparta.sdc.order.entity;
 
+import com.sparta.sdc.common.timestamp.Timestamped;
 import com.sparta.sdc.menu.entity.Menu;
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.user.entity.User;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "order_tb")
-public class Order {
+public class Order extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,23 +26,15 @@ public class Order {
     @Column
     private int totalprice;
 
+    @Column
+    private String menuOrder; // 주문할 메뉴 담는 변수
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_id", nullable = false)
-    private Shop shop;
-
-
-    @OneToMany
-    @JoinColumn(name = "order_id") // Menu 테이블에 order_id 컬럼
+    @OneToMany(mappedBy = "order")
     private List<Menu> menus = new ArrayList<>();
-
-
-
-    //cascade = CascadeType.REMOVE -> 참조관계를 지워주는 역할
-
 }
 
 
