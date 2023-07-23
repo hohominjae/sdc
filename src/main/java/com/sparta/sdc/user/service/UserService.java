@@ -28,7 +28,6 @@ public class UserService {
 
     public final ProfilePasswordRepository profilePasswordRepository;
 
-
     public void signup(AuthRequestDto requestDto) {
         String userName = requestDto.getUserName();
         String password = passwordEncoder.encode(requestDto.getPassword());

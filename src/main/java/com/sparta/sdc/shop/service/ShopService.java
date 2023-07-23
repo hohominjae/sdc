@@ -6,6 +6,7 @@ import com.sparta.sdc.shop.dto.ShopResponseDto;
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.shop.repository.ShopRepository;
 import com.sparta.sdc.user.entity.User;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,36 +31,16 @@ public class ShopService {
         return new ShopResponseDto(shopRepository.save(shop));
     }
 
-
-
-
     public ShopResponseDto getShop(Long shop_id) {
         return new ShopResponseDto(checkShop(shop_id));
     }
 
-    //public List<ShopResponseDto> getShops() {
-    //return shopRepository.findAllByOrderByCreatedAtDesc().stream().map(ShopResponseDto::new).toList();
-    //}
     public ShopResponseDto getShops() {
         List<ShopResponseDto> shopList = shopRepository.findAll().stream()
                 .map(ShopResponseDto::new)
                 .collect(Collectors.toList());
         return new ShopResponseDto(shopList);
     }
-
-    //    public static ShopResponseDto updateShop(Long shopId, ShopRequestDto shopRequestDto) {
-//        Shop shop = ShopRepository.findById(shopId).orElseThrow(() ->
-//                new NullPointerException("해당 가게는 존재하지 않습니다.")
-//        );
-//        if (shop.getUser().getUsername().equals(user.getUsername())) {
-//            shop.update(shopRequestDto);
-//        } else {
-//            throw new IllegalArgumentException("권한이 없습니다.");
-//        }
-//    }
-//    //    public ShopService(ShopRepository shopRepository){
-////        this.shopRepository=shopRepository;
-////    }
 
     @Transactional
     public ShopResponseDto updateShop(Long shop_id, ShopRequestDto shopRequestDto,UserDetailsImpl userDetails) {

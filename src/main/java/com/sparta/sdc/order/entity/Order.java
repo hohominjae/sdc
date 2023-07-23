@@ -33,18 +33,8 @@ public class Order extends Timestamped {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "shop_id", nullable = false)
-//    private Shop shop;
-
-
     @OneToMany(mappedBy = "order")
     private List<Menu> menus = new ArrayList<>();
-
-
-
-    //cascade = CascadeType.REMOVE -> 참조관계를 지워주는 역할
-
 }
 
 

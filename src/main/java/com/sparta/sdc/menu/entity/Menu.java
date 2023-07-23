@@ -1,6 +1,8 @@
 package com.sparta.sdc.menu.entity;
 
+
 import com.sparta.sdc.menu.dto.MenuRequestDto;
+
 import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.shop.entity.Shop;
 import jakarta.persistence.*;
@@ -23,7 +25,6 @@ public class Menu {
 
     @Column
     private int menuprice;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id", nullable = true)

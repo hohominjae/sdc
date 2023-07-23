@@ -16,7 +16,6 @@ public class MenuResponseDto {
     public MenuResponseDto(Menu menu){
         this.menuname = menu.getMenuname();
         this.menuprice = menu.getMenuprice();
+
     }
-
-
 }

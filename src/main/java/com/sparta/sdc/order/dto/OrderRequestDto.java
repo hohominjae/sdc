@@ -8,6 +8,4 @@ import lombok.Setter;
 public class OrderRequestDto {
     private int totalprice;
     private String menuOrder;
-
-
 }
