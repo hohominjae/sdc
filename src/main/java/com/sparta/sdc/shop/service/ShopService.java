@@ -5,8 +5,7 @@ import com.sparta.sdc.shop.dto.ShopRequestDto;
 import com.sparta.sdc.shop.dto.ShopResponseDto;
 import com.sparta.sdc.shop.entity.Shop;
 import com.sparta.sdc.shop.repository.ShopRepository;
-import com.sparta.sdc.user.entity.User;
-
+import com.sparta.sdc.user.entity.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,15 +19,18 @@ public class ShopService {
     private final ShopRepository shopRepository;
 
     public ShopResponseDto createShop(UserDetailsImpl userDetails, ShopRequestDto shopRequestDto) {
-        Shop shop = Shop.builder()
-                .shopName(shopRequestDto.getShopName())
-                .shopNumber(shopRequestDto.getShopNumber())
-                .address(shopRequestDto.getAddress())
-                .delivery(shopRequestDto.getDelivery())
-                .user(userDetails.getUser())
-                .build();
+        if (userDetails.getRole().equals(UserRoleEnum.ADMIN.toString()) || userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())){
+            Shop shop = Shop.builder()
 
-        return new ShopResponseDto(shopRepository.save(shop));
+                    .shopName(shopRequestDto.getShopName())
+                    .shopNumber(shopRequestDto.getShopNumber())
+                    .address(shopRequestDto.getAddress())
+                    .delivery(shopRequestDto.getDelivery())
+                    .user(userDetails.getUser())
+                    .build();
+
+            return new ShopResponseDto(shopRepository.save(shop));
+        } else throw new IllegalArgumentException("가게 생성 권한이 없습니다.");
     }
 
     public ShopResponseDto getShop(Long shop_id) {
@@ -45,22 +47,31 @@ public class ShopService {
     @Transactional
     public ShopResponseDto updateShop(Long shop_id, ShopRequestDto shopRequestDto,UserDetailsImpl userDetails) {
         Shop shop = checkShop(shop_id);
-        if(shop.getUser().getId().equals(userDetails.getUser().getId())){
+
+        if(userDetails.getRole().equals(UserRoleEnum.ADMIN.toString())) {
             shop.update(shopRequestDto);
-        }else {
-            throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
+            return new ShopResponseDto(shop);
+        } else if (shop.getUser().getId().equals(userDetails.getUser().getId()) && userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())) {
+            shop.update(shopRequestDto);
+            return new ShopResponseDto(shop);
+        } else {
+            throw new IllegalArgumentException("가게 수정 권한이 없습니다.");
         }
-        return new ShopResponseDto(shop);
     }
 
-    public ShopResponseDto deleteShop(Long id, UserDetailsImpl userDetails) {
-        Shop shop = checkShop(id);
-        if(shop.getUser().getId().equals(userDetails.getUser().getId())){
+    @Transactional
+    public ShopResponseDto deleteShop(Long shop_id, UserDetailsImpl userDetails) {
+        Shop shop = checkShop(shop_id);
+
+        if(userDetails.getRole().equals(UserRoleEnum.ADMIN.toString())) {
             shopRepository.delete(shop);
-        }else {
-            throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
+            return new ShopResponseDto(shop);
+        } else if (shop.getUser().getId().equals(userDetails.getUser().getId()) && userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())) {
+            shopRepository.delete(shop);
+            return new ShopResponseDto(shop);
+        } else {
+            throw new IllegalArgumentException("가게 수정 권한이 없습니다.");
         }
-        return new ShopResponseDto(shop);
     }
 
     private Shop checkShop(Long id) {

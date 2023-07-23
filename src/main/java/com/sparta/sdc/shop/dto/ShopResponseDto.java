@@ -33,7 +33,7 @@ public class ShopResponseDto {
         this.menus = shop.getMenus().stream().map(MenuResponseDto::new).toList();
         this.reviews = shop.getReviews().stream().map(ReviewResponseDto::new).toList();
     }
-
+  
     public ShopResponseDto(List<ShopResponseDto> shopList) {
         this.shopsList = shopList;
     }

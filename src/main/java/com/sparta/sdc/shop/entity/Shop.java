@@ -1,7 +1,6 @@
 package com.sparta.sdc.shop.entity;
 
 import com.sparta.sdc.menu.entity.Menu;
-import com.sparta.sdc.order.entity.Order;
 import com.sparta.sdc.review.entity.Review;
 import com.sparta.sdc.shop.dto.ShopRequestDto;
 import com.sparta.sdc.user.entity.User;
@@ -23,7 +22,7 @@ public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+  
     @Column(name = "shopName", nullable = false) //
     private String shopName;
 
@@ -54,6 +53,7 @@ public class Shop {
         this.delivery = delivery;
         this.user = user;
     }
+
     public void update(ShopRequestDto shopRequestDto) {
         this.shopName = shopRequestDto.getShopName();
         this.shopNumber = shopRequestDto.getShopNumber();
