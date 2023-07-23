@@ -20,5 +20,4 @@ public class ShopRequestDto {
         this.delivery = delivery;
         this.user = user;
     }
-
 }

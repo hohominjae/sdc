@@ -2,7 +2,7 @@ package com.sparta.sdc.user.jwtUtil;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.sdc.user.dto.ApiResponseDto;
-import com.sparta.sdc.common.timestamp.security.UserDetailsServiceImpl;
+import com.sparta.sdc.common.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/sdc")
+@RequestMapping("/api/sdc")
 public class ShopController {
     private final ShopService shopService;
     @PostMapping("/shops")
@@ -21,7 +21,6 @@ public class ShopController {
     }
 
     @GetMapping("/shops")
-    //@ResponseBody
     public ResponseEntity<ShopResponseDto> getShops(){
         ShopResponseDto result = shopService.getShops();
         return ResponseEntity.ok().body(result);

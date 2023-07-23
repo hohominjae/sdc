@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ShopService {
     private final ShopRepository shopRepository;
@@ -22,10 +21,10 @@ public class ShopService {
     public ShopResponseDto createShop(UserDetailsImpl userDetails, ShopRequestDto shopRequestDto) {
         if (userDetails.getRole().equals(UserRoleEnum.ADMIN.toString()) || userDetails.getRole().equals(UserRoleEnum.SHOP_KEEPER.toString())){
             Shop shop = Shop.builder()
-                    .shopname(shopRequestDto.getShopName())
-                    .shopnumber(shopRequestDto.getShopNumber())
+                    .shopName(shopRequestDto.getShopName())
+                    .shopNumber(shopRequestDto.getShopNumber())
                     .address(shopRequestDto.getAddress())
-                    .delivery(shopRequestDto.isDelivery()) //
+                    .delivery(shopRequestDto.isDelivery())
                     .user(userDetails.getUser())
                     .build();
 
@@ -44,6 +43,7 @@ public class ShopService {
         return new ShopResponseDto(shopList);
     }
 
+    @Transactional
     public ShopResponseDto updateShop(Long shop_id, ShopRequestDto shopRequestDto,UserDetailsImpl userDetails) {
         Shop shop = checkShop(shop_id);
 
@@ -58,6 +58,7 @@ public class ShopService {
         }
     }
 
+    @Transactional
     public ShopResponseDto deleteShop(Long shop_id, UserDetailsImpl userDetails) {
         Shop shop = checkShop(shop_id);
 
