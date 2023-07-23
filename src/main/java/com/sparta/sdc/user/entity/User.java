@@ -6,6 +6,7 @@ import com.sparta.sdc.review.entity.Review;
 import com.sparta.sdc.user.dto.ProfileRequestDto;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,7 @@ public class User {
     @Column(nullable = false)
     private String nickName;
 
+    @Email
     @Column(nullable = false)
     private String email;
 

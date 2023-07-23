@@ -26,6 +26,13 @@ public class UserController {
             return ResponseEntity.status(201).body(new ApiResponseDto("회원가입 성공", HttpStatus.CREATED.value()));
     }
 
+//    @ResponseBody
+//    @PostMapping("/signup/emailCheck")
+//    public ResponseEntity<ApiResponseDto> EmailCheck(@RequestBody EmailCheckRequestDto emailCheckRequestDto) throws MessagingException, UnsupportedEncodingException {
+//        String authCode = userService.sendEmail(emailCheckRequestDto.getEmail());
+//        return new ApiResponseDto(authCode);	// Response body에 값을 반환
+//    }
+
     //로그인
     @PostMapping("/login")
     public ResponseEntity<ApiResponseDto> login(@RequestBody AuthRequestDto loginRequestDto, HttpServletResponse response) {
