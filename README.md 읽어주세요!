@@ -1,5 +1,13 @@
 # sdc
 init
+구현된 기능
+로그인, 로그아웃,이메일 인증, 프로필 수정, 가게 CRUD, 메뉴 CRUD, 리뷰 C
+
+민재 리뷰 CRUD 기능, entity, dto, github
+신혜 사용자 인증 기능, entity, dto, 이메일 인증, 메뉴 CRUD구성
+소영 가게, 메뉴 CRUD 기능, entity, dto
+지혜 프로필 관리, entity, dto, 메뉴 CRUD 구성
+
 <<네이버 이메일에 환경설정에 들어가서  pop3 / SMTP 을 아래와 같이 설정해주세요!>>
 pop3/smtp 사용함 -> 기존에 받은 메일을 포함하여 받음 -> 네이버 메일에 원본 저장
 
